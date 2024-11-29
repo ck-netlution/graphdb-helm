@@ -104,25 +104,25 @@ spec:
                   name: {{ tpl .Values.configuration.tls.keystore.existingSecret . }}
                   items:
                     - key: {{ .Values.configuration.tls.keystore.keystoreKey }}
-                      path: {{ .Values.configuration.tls.keystore.keystoreKey }}
+                      path: tomcatKeystore/{{ .Values.configuration.tls.keystore.keystoreKey }}
                     - key: {{ .Values.configuration.tls.keystore.keystorePasswordKey }}
-                      path: {{ .Values.configuration.tls.keystore.keystorePasswordKey }}
+                      path: tomcatKeystore/{{ .Values.configuration.tls.keystore.keystorePasswordKey }}
               {{- end }}
               {{- if .Values.configuration.tls.truststore.existingSecret }}
               - secret:
                   name: {{ tpl .Values.configuration.tls.truststore.existingSecret . }}
                   items:
                     - key: {{ .Values.configuration.tls.truststore.truststoreKey }}
-                      path: {{ .Values.configuration.tls.truststore.truststoreKey }}
+                      path: tomcatTruststore/{{ .Values.configuration.tls.truststore.truststoreKey }}
                     - key: {{ .Values.configuration.tls.truststore.truststorePasswordKey }}
-                      path: {{ .Values.configuration.tls.truststore.truststorePasswordKey }}
+                      path: tomcatTruststore/{{ .Values.configuration.tls.truststore.truststorePasswordKey }}
               {{- end }}
               {{- if .Values.configuration.tls.certificateRevocationList.existingSecret }}
               - secret:
                   name: {{ tpl .Values.configuration.tls.certificateRevocationList.existingSecret . }}
                   items:
                     - key: {{ .Values.configuration.tls.certificateRevocationList.certificateRevocationListKey }}
-                      path: {{ .Values.configuration.tls.certificateRevocationList.certificateRevocationListKey }}
+                      path: tomcatCrl/{{ .Values.configuration.tls.certificateRevocationList.certificateRevocationListKey }}
               {{- end }}
         - name: graphdb-grpc-tls
           projected:
@@ -132,55 +132,55 @@ spec:
                   name: {{ tpl .Values.cluster.tls.keystore.existingSecret . }}
                   items:
                     - key: {{ .Values.cluster.tls.keystore.keystoreKey }}
-                      path: {{ .Values.cluster.tls.keystore.keystoreKey }}
+                      path: grpcKeystore/{{ .Values.cluster.tls.keystore.keystoreKey }}
                     - key: {{ .Values.cluster.tls.keystore.keystorePasswordKey }}
-                      path: {{ .Values.cluster.tls.keystore.keystorePasswordKey }}
+                      path: grpcKeystore/{{ .Values.cluster.tls.keystore.keystorePasswordKey }}
               {{- end }}
               {{- if .Values.cluster.tls.truststore.existingSecret }}
               - secret:
                   name: {{ tpl .Values.cluster.tls.truststore.existingSecret . }}
                   items:
                     - key: {{ .Values.cluster.tls.truststore.truststoreKey }}
-                      path: {{ .Values.cluster.tls.truststore.truststoreKey }}
+                      path: grpcTruststore/{{ .Values.cluster.tls.truststore.truststoreKey }}
                     - key: {{ .Values.cluster.tls.truststore.truststorePasswordKey }}
-                      path: {{ .Values.cluster.tls.truststore.truststorePasswordKey }}
+                      path: grpcTruststore/{{ .Values.cluster.tls.truststore.truststorePasswordKey }}
               {{- end }}
               {{- if .Values.cluster.tls.certificateKey.existingSecret }}
               - secret:
                   name: {{ tpl .Values.cluster.tls.certificateKey.existingSecret . }}
                   items:
                     - key: {{ .Values.cluster.tls.certificateKey.privateKeyKey }}
-                      path: {{ .Values.cluster.tls.certificateKey.privateKeyKey }}
+                      path: grpcCertificateKey/{{ .Values.cluster.tls.certificateKey.privateKeyKey }}
                     - key: {{ .Values.cluster.tls.certificateKey.privateKeyPasswordKey }}
-                      path: {{ .Values.cluster.tls.certificateKey.privateKeyPasswordKey }}
+                      path: grpcCertificateKey/{{ .Values.cluster.tls.certificateKey.privateKeyPasswordKey }}
               {{- end }}
               {{- if .Values.cluster.tls.certificate.existingSecret }}
               - secret:
                   name: {{ tpl .Values.cluster.tls.certificate.existingSecret . }}
                   items:
                     - key: {{ .Values.cluster.tls.certificate.certificateKey }}
-                      path: {{ .Values.cluster.tls.certificate.certificateKey }}
+                      path: grpcCertificate/{{ .Values.cluster.tls.certificate.certificateKey }}
               {{- end }}
               {{- if .Values.cluster.tls.certificateChain.existingSecret }}
               - secret:
                   name: {{ tpl .Values.cluster.tls.certificateChain.existingSecret . }}
                   items:
                     - key: {{ .Values.cluster.tls.certificateChain.certificateChainKey }}
-                      path: {{ .Values.cluster.tls.certificateChain.certificateChainKey }}
+                      path: grpcCertificateChain/{{ .Values.cluster.tls.certificateChain.certificateChainKey }}
               {{- end }}
               {{- if .Values.cluster.tls.rootCerts.existingSecret }}
               - secret:
                   name: {{ tpl .Values.cluster.tls.rootCerts.existingSecret . }}
                   items:
                     - key: {{ .Values.cluster.tls.rootCerts.rootCertsKey }}
-                      path: {{ .Values.cluster.tls.rootCerts.rootCertsKey }}
+                      path: grpcRootCertificates/{{ .Values.cluster.tls.rootCerts.rootCertsKey }}
               {{- end }}
               {{- if .Values.cluster.tls.certificateRevocationList.existingSecret }}
               - secret:
                   name: {{ tpl .Values.cluster.tls.certificateRevocationList.existingSecret . }}
                   items:
                     - key: {{ .Values.cluster.tls.certificateRevocationList.certificateRevocationListKey }}
-                      path: {{ .Values.cluster.tls.certificateRevocationList.certificateRevocationListKey }}
+                      path: grpcCrl/{{ .Values.cluster.tls.certificateRevocationList.certificateRevocationListKey }}
               {{- end }}
         {{- with .Values.proxy.extraVolumes }}
           {{- tpl (toYaml .) $ | nindent 8 }}
